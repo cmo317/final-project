@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>the state of freight</title>
+  <title>&#128642; the state of freight</title>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css?v=1.0">
@@ -13,7 +13,7 @@
 <body>
   <!-- my navbar -->
   <div id="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #B9C4CB;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand">the state of freight</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,17 +38,22 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5>the state of freight</h5>
+          <h5><strong>the state of freight:</strong><br> visualising freight train derailments</h5>
         </div>
         <div class="modal-body">
-          <p>this map is based on <a href="https://www.vice.com/en/article/3angy3/freight-rail-train-disaster-avoidable-boeing">'It's Going to End Up Like Boeing:' How Freight Rail Is Courting Catastrophe</a> by Aaron Gordon<br>
-            reading it alarmed me<br>
-            so I made this map of derailments in the US using data from the Federal Railroad Administration Office of Safety Analysis.
-            If you like websites that are designed like it's still the 90s, you will it enjoy <a href="https://safetydata.fra.dot.gov/OfficeofSafety/publicsite/on_the_fly_download.aspx" >their website</a>
+          <p>
+            This map is based on <a href="https://www.vice.com/en/article/3angy3/freight-rail-train-disaster-avoidable-boeing">'It's Going to End Up Like Boeing:' How Freight Rail Is Courting Catastrophe</a> by Aaron Gordon.
+          </p>
+          <p>
+            Reading it alarmed me, so I made this map of derailments in the US using data from the Federal Railroad Administration Office of Safety Analysis.
+            (If you like websites that are designed like it's still the 90s, you will enjoy <a href="https://safetydata.fra.dot.gov/OfficeofSafety/publicsite/on_the_fly_download.aspx">their website</a>)
+          </p>
+          <p>
+            woof?
           </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="tip-btn" data-bs-dismiss="modal"> okay</button>
+          <button type="button" class="btn btn-secondary" id="tip-btn" data-bs-dismiss="modal"> let me see!</button>
         </div>
       </div>
     </div>
@@ -57,9 +62,10 @@
   <div class="flex-container">
     <div class="flex-left">
       <div id="title">
-      <h3>derailments over time</h3>
+        <h3>freight train derailments</h3>
       </div>
-      <p>hover on a state to get derailment statistics. click on a state to see how it ranks<p>
+      <p>hover on a state to get derailment statistics. click on a state to see how it ranks
+      <p>
       <div class="nav-buttons">
         <a href="#" id="2020-button" class="nav-button btn btn-outline-secondary active">2020</a>
         <a href="#" id="2019-button" class="nav-button btn btn-outline-secondary">2019</a>
@@ -72,11 +78,13 @@
         <div class='legend-title'>
           <div class='legend-scale'>
             <ul class='legend-labels'>
-              <li><span style='background:#ffefdc;'></span>0.2</li>
-              <li><span style='background:#f1b093;'></span>0.6</li>
-              <li><span style='background:#e27149;'></span>1.0</li>
-              <li><span style='background:#b13925;'></span>1.4</li>
-              <li><span style='background:#7f0101;'></span>1.8</li>
+              <li><span style='background:#fee5d9;'></span>0</li>
+              <li><span style='background:#fcbba1;'></span>5</li>
+              <li><span style='background:#fc9272;'></span>13</li>
+              <li><span style='background:#fb6a4a;'></span>19</li>
+              <li><span style='background:#ef3b2c;'></span>26</li>
+              <li><span style='background:#cb181d;'></span>40</li>
+              <li><span style='background:#99000d;'></span>100</li>
             </ul>
           </div>
         </div>

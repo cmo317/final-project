@@ -41,12 +41,24 @@ body {
   padding:10px;
 }
 
+.modal-header {
+  padding-top: 16px;
+  padding-bottom: 0px;
+  margin:auto;
+}
+
+.modal-body p {
+  text-align:left;
+
+}
+
+
 
 /* props to Lazarus for this legend */
 .my-legend .legend-title {
   text-align: left;
   margin-bottom: 8px;
-  font-size: 90%;
+  font-size: 80%;
   }
 .my-legend .legend-scale ul {
   margin: 0;
@@ -57,20 +69,20 @@ body {
 .my-legend .legend-scale ul li {
   display: block;
   float: left;
-  width: 50px;
+  width: 40px;
   margin-bottom: 6px;
   text-align: center;
-  font-size: 80%;
+  font-size: 70%;
   list-style: none;
   }
 .my-legend ul.legend-labels li span {
   display: block;
   float: left;
   height: 15px;
-  width: 50px;
+  width: 40px;
   }
 .my-legend .legend-source {
-  font-size: 70%;
+  font-size: 60%;
   color: #999;
   clear: both;
   }

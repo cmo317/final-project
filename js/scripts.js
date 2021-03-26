@@ -20,6 +20,7 @@ var map = new mapboxgl.Map({
 // add a navigation control
 var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-left');
+map.scrollZoom.disable();
 
 //add my state level source
 map.on('style.load', function() {
@@ -43,8 +44,9 @@ map.on('style.load', function() {
           [5, '#fcbba1'],
           [13, '#fc9272'],
           [19, '#fb6a4a'],
-          [26, '#de2d26'],
-          [40, '#a50f15']
+          [26, '#ef3b2c'],
+          [40, '#cb181d'],
+          [100, '#99000d']
         ]
       },
       'fill-outline-color': 'white',
@@ -71,8 +73,9 @@ map.on('style.load', function() {
           [5, '#fcbba1'],
           [13, '#fc9272'],
           [19, '#fb6a4a'],
-          [26, '#de2d26'],
-          [40, '#a50f15']
+          [26, '#ef3b2c'],
+          [40, '#cb181d'],
+          [100, '#99000d']
         ]
       },
       'fill-outline-color': 'white',
@@ -98,8 +101,9 @@ map.on('style.load', function() {
           [5, '#fcbba1'],
           [13, '#fc9272'],
           [19, '#fb6a4a'],
-          [26, '#de2d26'],
-          [40, '#a50f15']
+          [26, '#ef3b2c'],
+          [40, '#cb181d'],
+          [100, '#99000d']
         ]
       },
       'fill-outline-color': 'white',
