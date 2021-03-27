@@ -4,8 +4,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>&#128642; the state of freight</title>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+  <title>the state of freight</title>
+  <!-- favicon from https://favicon.io/emoji-favicons/locomotive/ -->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico">  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/55db458b84.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
@@ -43,11 +44,19 @@
             This map is based on <a href="https://www.vice.com/en/article/3angy3/freight-rail-train-disaster-avoidable-boeing">'It's Going to End Up Like Boeing:' How Freight Rail Is Courting Catastrophe</a> by Aaron Gordon.
           </p>
           <p>
-            Reading it alarmed me, so I made this map of derailments in the US using data from the Federal Railroad Administration Office of Safety Analysis.
-            (If you like websites that are designed like it's still the 90s, you will enjoy <a href="https://safetydata.fra.dot.gov/OfficeofSafety/publicsite/on_the_fly_download.aspx">their website</a>)
+            The tl;dr is that large freight companies are implementing new 'efficiency processes' with potentially detrimental effects to safety (think: decreasing the time allocated to car inspections by half from three minutes to one-and-a-half minutes per car).
           </p>
           <p>
-            woof?
+            Reading the article alarmed me, so I made this map of derailments in the US using data from the Federal Railroad Administration Office of Safety Analysis.
+          </p>
+          <p>
+            This map shows the number of derailments by state in 2005, 2010, 2015, and 2020.
+            Hover over the states to see how many derailments there were, casualty and injury data, the number of cars carrying hazardous materials that derailed, and the number of those cars that spilled the hazardous materials they contained.
+          </p>
+          <p>
+            Suffice to say they don't make it convenient to get the data.If you like websites that are designed like it's still the 90s, you will enjoy <a href="https://safetydata.fra.dot.gov/OfficeofSafety/publicsite/on_the_fly_download.aspx">their website</a>).
+
+
           </p>
         </div>
         <div class="modal-footer">
@@ -59,20 +68,19 @@
 
   <div class="flex-container">
     <div class="flex-left">
-      <div id="title">
-        <h5>freight train derailments</h5>
+      <div id="title">&#128642; &#128642; &#128642;
       </div>
       <p>hover on a state to get derailment statistics. click on a state to see how it ranks
       <p>
       <div class="nav-buttons">
         <a href="#" id="2020-button" class="nav-button btn btn-outline-secondary active">2020</a>
-        <a href="#" id="2019-button" class="nav-button btn btn-outline-secondary">2019</a>
-        <a href="#" id="2018-button" class="nav-button btn btn-outline-secondary">2018</a>
+        <a href="#" id="2015-button" class="nav-button btn btn-outline-secondary">2015</a>
+        <a href="#" id="2010-button" class="nav-button btn btn-outline-secondary">2010</a>
+        <a href="#" id="2005-button" class="nav-button btn btn-outline-secondary">2005</a>
       </div>
       <div id='feature-info'>
       </div>
-
-      <div class='my-legend' id='legend'>
+      <div id="legend-wrapper" <div class='my-legend' id='legend'>
         <div class='legend-title'>number of derailments
           <div class='legend-scale'>
             <ul class='legend-labels'>
@@ -86,11 +94,11 @@
             </ul>
           </div>
         </div>
-      </div>
     </div>
-    <div class="flex-right">
-      <div id='mapContainer'></div>
-    </div>
+  </div>
+  <div class="flex-right">
+    <div id='mapContainer'></div>
+  </div>
 
   </div>
 

@@ -5,11 +5,6 @@ $(document).ready(function() {
   $("#myModal").modal('show');
 });
 
-// function to convert number to string with commas -- props to nick cowan for this
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-
 var map = new mapboxgl.Map({
   container: 'mapContainer', // container ID
   style: 'mapbox://styles/mapbox/light-v10',
@@ -53,15 +48,15 @@ map.on('style.load', function() {
       'fill-opacity': 0.85
     }
   });
-  // add 2019 data
-  map.addSource('states2019', {
+  // add 2015 data
+  map.addSource('states2015', {
     'type': 'geojson',
-    'data': 'data/data2019.geojson'
+    'data': 'data/data2015.geojson'
   });
   map.addLayer({
-    'id': '2019',
+    'id': '2015',
     'type': 'fill',
-    'source': 'states2019',
+    'source': 'states2015',
     'layout': {
       'visibility': 'none'
     },
@@ -82,14 +77,42 @@ map.on('style.load', function() {
       'fill-opacity': 0.85
     }
   });
-  map.addSource('states2018', {
+  map.addSource('states2010', {
     'type': 'geojson',
-    'data': 'data/data2018.geojson'
+    'data': 'data/data2010.geojson'
   });
   map.addLayer({
-    'id': '2018',
+    'id': '2010',
     'type': 'fill',
-    'source': 'states2018',
+    'source': 'states2010',
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': {
+        'property': 'derailments',
+        'stops': [
+          [0, '#fee5d9'],
+          [5, '#fcbba1'],
+          [13, '#fc9272'],
+          [19, '#fb6a4a'],
+          [26, '#ef3b2c'],
+          [40, '#cb181d'],
+          [100, '#99000d']
+        ]
+      },
+      'fill-outline-color': 'white',
+      'fill-opacity': 0.85
+    }
+  });
+  map.addSource('states2005', {
+    'type': 'geojson',
+    'data': 'data/data2005.geojson'
+  });
+  map.addLayer({
+    'id': '2005',
+    'type': 'fill',
+    'source': 'states2005',
     'layout': {
       'visibility': 'none'
     },
@@ -134,7 +157,7 @@ map.on('style.load', function() {
 });
 //toggle on/off layers from https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/
 // also huge help from https://jwilsonschutter.github.io/Webmapping-Final-Class/
-var toggleableLayerIds = ['2020', '2019', '2018'];
+var toggleableLayerIds = ['2020', '2015', '2010', '2005'];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
   var id = toggleableLayerIds[i];
@@ -175,7 +198,7 @@ var popup = new mapboxgl.Popup({
 map.on('mousemove', function(e) {
   // query for the features under the mouse, but only in the lots layer
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['2020', '2019', '2018'],
+    layers: ['2020', '2015', '2010','2005'],
   });
 
   // set up variable to show scenario in sidebar
@@ -195,18 +218,27 @@ map.on('mousemove', function(e) {
       var injuries = hoveredFeature.properties.CASINJ;
       var hazmat = hoveredFeature.properties.CARSDMG;
       var spilled = hoveredFeature.properties.CARSHZD;
-    } else if (features[0].layer.id === '2019') {
+    } else if (features[0].layer.id === '2015') {
       var state = hoveredFeature.properties.NAME;
-      var year = '2019';
+      var year = '2015';
       var derail = hoveredFeature.properties.derailments;
       var damages = hoveredFeature.properties.ACCDMG;
       var casualties = hoveredFeature.properties.CASKLD;
       var injuries = hoveredFeature.properties.CASINJ;
       var hazmat = hoveredFeature.properties.CARSDMG;
       var spilled = hoveredFeature.properties.CARSHZD;
-    } else if (features[0].layer.id === '2018') {
+    } else if (features[0].layer.id === '2010') {
       var state = hoveredFeature.properties.NAME;
-      var year = '2019  ';
+      var year = '2010';
+      var derail = hoveredFeature.properties.derailments;
+      var damages = hoveredFeature.properties.ACCDMG;
+      var casualties = hoveredFeature.properties.CASKLD;
+      var injuries = hoveredFeature.properties.CASINJ;
+      var hazmat = hoveredFeature.properties.CARSDMG;
+      var spilled = hoveredFeature.properties.CARSHZD;
+    }else if (features[0].layer.id === '2005') {
+      var state = hoveredFeature.properties.NAME;
+      var year = '2005';
       var derail = hoveredFeature.properties.derailments;
       var damages = hoveredFeature.properties.ACCDMG;
       var casualties = hoveredFeature.properties.CASKLD;
@@ -216,14 +248,14 @@ map.on('mousemove', function(e) {
     }
 
     var popupContent = `
-<div>
-        <p><strong>state:</strong> ${state}<br>
-        <strong>number of derailments in ${year}:</strong>  ${derail}<br>
-        <strong>total damages ($):</strong> ${damages}<br>
+<div id="popup">
+        <h6><strong>${state}</strong><br></h6>
+        <strong>derailments in ${year}:</strong>  ${derail}<br>
+        <strong>total damages:</strong> $${damages}<br>
         <strong>casualties:</strong> ${casualties}<br>
         <strong>injuries:</strong> ${injuries}<br>
-        <strong>derailed cars containing hazardous materials:</strong> ${hazmat}<br>
-        <strong>cars containing hazardous materials that spilled:</strong> ${spilled}</p>
+        <strong>derailed hazmat cars:</strong> ${hazmat}<br>
+        <strong>spilled hazmat cars:</strong> ${spilled}</p>
 <div>
       `
 
@@ -254,7 +286,7 @@ map.getSource('highlight-feature').setData({
 map.on('click', function(e) {
   // query for the features under the mouse, but only in the lots layer
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['2020', '2019','2018'],
+    layers: ['2020', '2015','2010','2005'],
   });
 
   // if the mouse pointer is over a feature on our layer of interest
@@ -263,11 +295,11 @@ map.on('click', function(e) {
     map.getCanvas().style.cursor = 'pointer'; // make the cursor a pointer
     var clickedFeature = features[0]
     var featureInfo = `
-        <p>${clickedFeature.properties.NAME} Rankings<br>
-        total derailments: #${clickedFeature.properties.rankderail}<br>
+        <h6><strong>${clickedFeature.properties.NAME} Rankings</strong></h6>
+        <p>total derailments: #${clickedFeature.properties.rankderail}<br>
         total damages ($): #${clickedFeature.properties.rankACCDMG}<br>
-        derailed cars containing hazardous materials: #${clickedFeature.properties.rankCARSDMG}<br>
-        cars containing hazardous materials that spilled: #${clickedFeature.properties.rankCARSHZD}</p>
+        derailed hazmat cars: #${clickedFeature.properties.rankCARSDMG}<br>
+        hazmat cars that spilled: #${clickedFeature.properties.rankCARSHZD}</p>
       `
     $('#feature-info').html(featureInfo)
 
