@@ -50,7 +50,7 @@ map.on('style.load', function() {
         ]
       },
       'fill-outline-color': 'white',
-      'fill-opacity': 0.95
+      'fill-opacity': 0.85
     }
   });
   // add 2019 data
@@ -79,7 +79,7 @@ map.on('style.load', function() {
         ]
       },
       'fill-outline-color': 'white',
-      'fill-opacity': 0.95
+      'fill-opacity': 0.85
     }
   });
   map.addSource('states2018', {
@@ -107,7 +107,7 @@ map.on('style.load', function() {
         ]
       },
       'fill-outline-color': 'white',
-      'fill-opacity': 0.95
+      'fill-opacity': 0.85
     }
   });
 

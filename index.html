@@ -7,6 +7,7 @@
   <title>&#128642; the state of freight</title>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/55db458b84.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 </head>
 
@@ -15,7 +16,7 @@
   <div id="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand">the state of freight</a>
+        <a class="navbar-brand"><i class="fas fa-train"></i> the state of freight</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,9 +24,6 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link about" id="myBtn" href="#"><i class="fas fa-info-circle"></i> About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link methodology" href="#"><i class="fas fa-pencil-ruler"></i> Methodology</a>
             </li>
           </ul>
         </div>
@@ -62,7 +60,7 @@
   <div class="flex-container">
     <div class="flex-left">
       <div id="title">
-        <h3>freight train derailments</h3>
+        <h5>freight train derailments</h5>
       </div>
       <p>hover on a state to get derailment statistics. click on a state to see how it ranks
       <p>
@@ -75,7 +73,7 @@
       </div>
 
       <div class='my-legend' id='legend'>
-        <div class='legend-title'>
+        <div class='legend-title'>number of derailments
           <div class='legend-scale'>
             <ul class='legend-labels'>
               <li><span style='background:#fee5d9;'></span>0</li>
