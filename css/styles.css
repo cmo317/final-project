@@ -44,6 +44,7 @@ body {
 
 #title {
   padding: 20px;
+  font-size: 40px;
 }
 
 div.modal-header {
@@ -63,7 +64,6 @@ div.modal-header h5 {
 .modal-body p {
   text-align: left;
 }
-
 
 #popup {
   text-align: left;

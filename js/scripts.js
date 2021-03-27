@@ -5,6 +5,7 @@ $(document).ready(function() {
   $("#myModal").modal('show');
 });
 
+// map a map
 var map = new mapboxgl.Map({
   container: 'mapContainer', // container ID
   style: 'mapbox://styles/mapbox/light-v10',
@@ -17,13 +18,13 @@ var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-left');
 map.scrollZoom.disable();
 
-//add my state level source
+//add my 2020 source
 map.on('style.load', function() {
   map.addSource('states2020', {
     'type': 'geojson',
     'data': 'data/data2020.geojson'
   });
-  //add derailments2020 layer
+  //add 2020 layer
   map.addLayer({
     'id': '2020',
     'type': 'fill',
@@ -77,6 +78,7 @@ map.on('style.load', function() {
       'fill-opacity': 0.85
     }
   });
+  // add 2010
   map.addSource('states2010', {
     'type': 'geojson',
     'data': 'data/data2010.geojson'
@@ -109,6 +111,7 @@ map.on('style.load', function() {
     'type': 'geojson',
     'data': 'data/data2005.geojson'
   });
+  // add 2005
   map.addLayer({
     'id': '2005',
     'type': 'fill',
@@ -155,6 +158,7 @@ map.on('style.load', function() {
     }
   });
 });
+
 //toggle on/off layers from https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/
 // also huge help from https://jwilsonschutter.github.io/Webmapping-Final-Class/
 var toggleableLayerIds = ['2020', '2015', '2010', '2005'];
@@ -195,15 +199,12 @@ var popup = new mapboxgl.Popup({
   closeOnClick: false
 });
 
+// create popup on hover
 map.on('mousemove', function(e) {
-  // query for the features under the mouse, but only in the lots layer
+  // query for the features under the mouse, but only in the selected layer
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['2020', '2015', '2010','2005'],
+    layers: ['2020', '2015', '2010', '2005'],
   });
-
-  // set up variable to show scenario in sidebar
-  //var showScenario = document.getElementById('scenario');
-
   if (features.length > 0) {
     // show the popup
     // Populate the popup and set its coordinates
@@ -236,7 +237,7 @@ map.on('mousemove', function(e) {
       var injuries = hoveredFeature.properties.CASINJ;
       var hazmat = hoveredFeature.properties.CARSDMG;
       var spilled = hoveredFeature.properties.CARSHZD;
-    }else if (features[0].layer.id === '2005') {
+    } else if (features[0].layer.id === '2005') {
       var state = hoveredFeature.properties.NAME;
       var year = '2005';
       var derail = hoveredFeature.properties.derailments;
@@ -271,22 +272,22 @@ map.on('mousemove', function(e) {
     popup.remove();
 
     map.getCanvas().style.cursor = '';
-    // reset the highlight source to an empty featurecollection
-map.getSource('highlight-feature').setData({
-  type: 'FeatureCollection',
-  features: []
-     });
-  }
 
+    // reset the highlight source to an empty featurecollection
+    map.getSource('highlight-feature').setData({
+      type: 'FeatureCollection',
+      features: []
+    });
+  }
 })
 
 
 
 // populate sidebar on click
 map.on('click', function(e) {
-  // query for the features under the mouse, but only in the lots layer
+  // query for the features under the mouse, but only in the selected layer
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['2020', '2015','2010','2005'],
+    layers: ['2020', '2015', '2010', '2005'],
   });
 
   // if the mouse pointer is over a feature on our layer of interest
@@ -302,9 +303,9 @@ map.on('click', function(e) {
         hazmat cars that spilled: #${clickedFeature.properties.rankCARSHZD}</p>
       `
     $('#feature-info').html(featureInfo)
-
     // set this lot's polygon feature as the data for the highlight source
     map.getSource('highlight-feature').setData(clickedFeature.geometry);
+    var sidebarContent = clickedFeature.properties.NAME
   } else {
     // if there is no feature under the mouse, reset things:
     map.getCanvas().style.cursor = 'default'; // make the cursor default
@@ -314,11 +315,15 @@ map.on('click', function(e) {
       type: 'FeatureCollection',
       features: []
     });
-
     // reset the default message
     $('#feature-info').html(defaultText)
   }
 })
+
+$('.nav-button').on('click', function(emptySidebar) {
+  $('#feature-info').empty()
+})
+
 
 
 // MODAL STUFF
